@@ -1,0 +1,32 @@
+# Service #
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-istio-review
+  labels:
+    app: sample-istio-review
+spec:
+  ports:
+  - port: 80
+    name: http
+  selector:
+    app: sample-istio-review
+---
+# Deployment #
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: sample-istio-review
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sample-istio-review
+    spec:
+      containers:
+      - name: sample-istio-review
+        image: fewbox/sample-istio-review:latest
+        ports:
+        - containerPort: 80
+        imagePullPolicy: Always
