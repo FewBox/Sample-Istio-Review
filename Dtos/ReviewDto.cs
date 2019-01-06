@@ -12,6 +12,6 @@ namespace Sample_Istio_Review.Dtos
         /// <summary>
         /// Review Base64 image star.
         /// </summary>
-        public string Base64ImageStar { get; set; }
+        public string Base64SvgStar { get; set; }
     }
 }
