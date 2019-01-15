@@ -1,0 +1,24 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: sample-istio-review
+spec:
+  hosts:
+  - sample-istio-review
+  http:
+  - match:
+    - headers:
+        enduser:
+          exact: pangxiaoliang
+    fault:
+      abort:
+        percent: 100
+        httpStatus: 500
+    route:
+    - destination:
+        host: sample-istio-review
+        subset: v1
+  - route:
+    - destination:
+        host: sample-istio-review
+        subset: v2
