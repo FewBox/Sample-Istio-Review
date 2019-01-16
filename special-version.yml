@@ -10,23 +10,3 @@ spec:
     - destination:
         host: sample-istio-review
         subset: v1
----
-apiVersion: networking.istio.io/v1alpha3
-kind: DestinationRule
-metadata:
-  name: sample-istio-review
-spec:
-  host: sample-istio-review
-  trafficPolicy:
-    tls:
-      mode: ISTIO_MUTUAL
-  subsets:
-  - name: v1
-    labels:
-      version: v1
-  - name: v2
-    labels:
-      version: v2
-  - name: latest
-    labels:
-      version: latest

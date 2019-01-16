@@ -34,7 +34,9 @@ namespace Sample_Istio_Review.Repositories
                 PayloadMetaResponseDto<Rating> responseData;
                 try
                 {
-                    var response = await client.GetAsync($"{this.RatingApiConfig.BaseUrl}/api/ratings/{id}");
+                    string url = $"{this.RatingApiConfig.BaseUrl}/api/ratings/{id}";
+                    Console.WriteLine(url);
+                    var response = await client.GetAsync(url);
                     response.EnsureSuccessStatusCode();
                     responseData = await response.Content.ReadAsAsync<PayloadMetaResponseDto<Rating>>();
                     if(responseData.IsSuccessful)
