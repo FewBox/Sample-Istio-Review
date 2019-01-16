@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +13,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Sample_Istio_Review.Configs;
+using Sample_Istio_Review.Repositories;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Sample_Istio_Review
@@ -29,6 +32,12 @@ namespace Sample_Istio_Review
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddAutoMapper();
+            services.AddHttpContextAccessor();
+            services.AddScoped<IReviewRepository, ReviewRepository>();
+            services.AddScoped<IRatingRepository, RatingRepository>();
+            var ratingApiConfig = this.Configuration.GetSection("RatingApiConfig").Get<RatingApiConfig>();
+            services.AddSingleton<RatingApiConfig>(ratingApiConfig);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "FewBox Review API", Version = "v1" });
