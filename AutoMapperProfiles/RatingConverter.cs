@@ -20,6 +20,7 @@ namespace Sample_Istio_Review.AutoMapperProfiles
         public int Resolve(Review source, ReviewDto destination, string sourceMember, int destMember, ResolutionContext context)
         {
             // return 1;
+            Console.WriteLine($"Review Id: {sourceMember}");
             var rating = this.RatingRepository.FindOne(sourceMember).Result;
             return rating!=null? rating.Star : -1;
         }

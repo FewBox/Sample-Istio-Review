@@ -20,7 +20,7 @@ namespace Sample_Istio_Review.Repositories
         }
         public async Task<Rating> FindOne(string id)
         {
-             using (var client = new HttpClient())
+            using (var client = new HttpClient())
             {
                 client.Timeout = TimeSpan.FromSeconds(3);
                 foreach(var header in this.HttpContextAccessor.HttpContext.Request.Headers)
